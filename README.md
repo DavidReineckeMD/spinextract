@@ -2,9 +2,9 @@
 
 Implementation code for RapidLymphoma. Paper submitted to Neuro-Oncology for Peer-Review
 
-[**Paper Website**](https://RapidLymphoma.mlins.org) /
-[**arXiv**](https://arxiv.org/abs/2206.08439) /
-[**Orringer Lab**](https://mlins.org)
+## Workflow
+
+![Overview](/figures/workflow.png)
 
 ## Installation
 

@@ -1,0 +1,30 @@
+infra:
+    log_dir: ./ # where all the experiments are
+    exp_name: rapidlymphoma_linear # create a subdirectory for one experiment
+    comment: dev # can use this to customize for each experiment
+    seed: 1000
+data:
+    db_root:  /path/to/data/ 
+    train_augmentation:
+    - which: random_horiz_flip
+      params: {}
+    - which: random_vert_flip
+      params: {}
+    valid_augmentation: []
+    rand_aug_prob: 0.5
+    balance_patch_per_class: true
+model:
+    backbone: resnet50
+    mlp_hidden: []
+training:
+    batch_size: 56 
+    num_epochs: 20
+    optimizer: adamw # [sgd, adam, adamw]
+    learn_rate: 0.01
+    scheduler:
+        which: cos_warmup
+        params:
+            num_warmup_steps: 0.1
+            num_cycles: 0.5
+    finetune_mode: linear
+    backbone_checkpoint: /path/to/checkpoint.pt

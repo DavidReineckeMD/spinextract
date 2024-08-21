@@ -2,6 +2,8 @@
 
 Implementation code for RapidLymphoma. Paper submitted to Neuro-Oncology for Peer-Review
 
+[**Preprint on Research Square**](https://arxiv.org/abs/2303.01605)
+
 ## Workflow
 
 ![Overview](/figures/workflow.png)

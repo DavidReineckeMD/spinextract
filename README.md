@@ -6,6 +6,10 @@ Implementation code for RapidLymphoma. Paper submitted to Neuro-Oncology for Pee
 
 ![Overview](/figures/workflow.png)
 
+## Correct predicted SRH wholde-slide images with visual heatmap feedback for model interpretability
+
+![Overview](/figures/correct_prediction_examples.png)
+
 ## Installation
 
 1. Clone RapidLymphoma github repo

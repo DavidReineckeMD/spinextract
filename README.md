@@ -9,9 +9,6 @@ This study introduces RapidLymphoma, a novel self-supervised-based deep-learning
 
 ![Overview](/figures/workflow.png)
 
-## Correct predicted SRH wholde-slide images with visual heatmap feedback for model interpretability
-
-![Overview](/figures/correct_prediction_examples.png)
 
 ## Installation
 

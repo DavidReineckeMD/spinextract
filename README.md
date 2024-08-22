@@ -4,7 +4,8 @@ Implementation code for RapidLymphoma. Paper submitted to Neuro-Oncology for Pee
 
 [**Preprint on Research Square**](https://researchsquare.com/)
 
-## Workflow
+## Clinical Impact and Workflow
+This study introduces RapidLymphoma, a novel self-supervised-based deep-learning model for visual representations to leverage the detection of primary CNS Lymphoma (PCNSL) and differentiation from common and rare CNS tumors using intraoperative label-free stimulated Raman histology. While PCNSL is rare, time-critical personalized treatment with fast intraoperative decision-making is needed. In an international multicentric clinical trial, RapidLymphoma first demonstrated its ability to detect and differentiate PCNSL from other CNS lesions with an overall diagnostic balanced accuracy of 97.81% ±0.91 compared to formalin-fixed paraffin-embedded diagnosis and is non-inferior to frozen section analysis. It provides near real-time intraoperative feedback and guidance to the surgeon, delivering a diagnosis in under three minutes. RapidLymphoma extracts key histomorphological features for detecting and differentiating CNS lesions by utilizing the benefits of intraoperative stimulated Raman histology. This guidance is assisted through a visual prediction heatmap feedback, highlighting critical areas for the surgeon and pathologist.
 
 ![Overview](/figures/workflow.png)
 

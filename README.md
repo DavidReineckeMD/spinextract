@@ -89,7 +89,7 @@ datasets.
     python eval.py -c config/eval.yaml
     ```
 
-## RapidLymphoma model
+## RapidLymphoma model weights
 [**Download RapidLymphoma weights**](https://huggingface.co/DavidReineckeMD/rapidlymphoma/blob/main/rapidlymphoma_resnet50.pt)
 
 ## License Information

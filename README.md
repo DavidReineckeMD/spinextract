@@ -1,6 +1,6 @@
 # RapidLymphoma: Fast intraoperative detection of primary CNS lymphoma and differentiation from common CNS tumors using stimulated Raman histology and deep learning
 
-Implementation code for RapidLymphoma. Paper submitted to Neuro-Oncology for Peer-Review
+Implementation code for RapidLymphoma. Accepted in Neuro-Oncology.
 
 [**Preprint on MedRxiv**](https://www.medrxiv.org/content/10.1101/2024.08.25.24312509v1)
 

@@ -2,7 +2,10 @@
 
 Implementation code for RapidLymphoma. Paper submitted to Neuro-Oncology for Peer-Review
 
-[**Preprint on Research Square**](https://researchsquare.com/)
+[**Preprint on MedRxiv**](https://www.medrxiv.org/content/10.1101/2024.08.25.24312509v1)
+
+[**Final Article available in Neuro-Oncology**](https://academic.oup.com/neuro-oncology/advance-article-abstract/doi/10.1093/neuonc/noae270/7924181?redirectedFrom=fulltext&login=true)
+
 
 
 ## Clinical Impact

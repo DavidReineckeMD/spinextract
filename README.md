@@ -20,7 +20,7 @@ This study introduces RapidLymphoma, a novel self-supervised-based deep-learning
 
 1. Clone RapidLymphoma github repo
    ```console
-   git clone git@github.com:MLNeurosurg/rapidlymphoma.git
+   git clone git@github.com:DavidReineckeMD/rapidlymphoma.git
    ```
 2. Install miniconda: follow instructions
     [here](https://docs.conda.io/en/latest/miniconda.html)

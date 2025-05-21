@@ -1,15 +1,14 @@
-# RapidLymphoma: Fast intraoperative detection of primary CNS lymphoma and differentiation from common CNS tumors using stimulated Raman histology and deep learning
+# SpineXtract: Fast intraoperative AI-based classifcation of common spinal tumor using stimulated Raman histology
 
-Implementation code for RapidLymphoma. Accepted in Neuro-Oncology.
+Implementation code for SpineXtract. Accepted in Neuro-Oncology.
 
-[**Preprint on MedRxiv**](https://www.medrxiv.org/content/10.1101/2024.08.25.24312509v1)
 
-[**Final Article available in Neuro-Oncology**](https://academic.oup.com/neuro-oncology/advance-article-abstract/doi/10.1093/neuonc/noae270/7924181?redirectedFrom=fulltext&login=true)
+[**Final Article available in XX**]
 
 
 
 ## Clinical Impact
-This study introduces RapidLymphoma, a novel self-supervised-based deep-learning model for visual representations to leverage the detection of primary CNS Lymphoma (PCNSL) and differentiation from common and rare CNS tumors using intraoperative label-free stimulated Raman histology. While PCNSL is rare, time-critical personalized treatment with fast intraoperative decision-making is needed. In an international multicentric clinical trial, RapidLymphoma first demonstrated its ability to detect and differentiate PCNSL from other CNS lesions with an overall diagnostic balanced accuracy of 97.81% ±0.91 compared to formalin-fixed paraffin-embedded diagnosis and is non-inferior to frozen section analysis. It provides near real-time intraoperative feedback and guidance to the surgeon, delivering a diagnosis in under three minutes. RapidLymphoma extracts key histomorphological features for detecting and differentiating CNS lesions by utilizing the benefits of intraoperative stimulated Raman histology. This guidance is critical in surgical decision-making and provide surgeons amd pathologists a visual prediction heatmap feedback, highlighting critical areas within each whole-slide image.
+SpineXtract addresses a critical gap in spinal tumor surgery through its ability to deliver rapid and accurate diagnostic insights that enhance intraoperative and clinical decision-making processes. By significantly reducing diagnostic timelines, this technology has the potential to shorten surgical duration and improve workflow efficiency. The system's robust performance across our international virtual trial demonstrates its adaptability to diverse clinical environments and delivers intraoperative visual feedback for immediate surgical guidance and further decision-making.
 
 ## Workflow
 
@@ -18,28 +17,28 @@ This study introduces RapidLymphoma, a novel self-supervised-based deep-learning
 
 ## Installation
 
-1. Clone RapidLymphoma github repo
+1. Clone spinextract github repo
    ```console
-   git clone git@github.com:DavidReineckeMD/rapidlymphoma.git
+   git clone git@github.com:DavidReineckeMD/spinextract.git
    ```
 2. Install miniconda: follow instructions
     [here](https://docs.conda.io/en/latest/miniconda.html)
 3. Create conda environment
     ```console
-    conda create -n rapidlymphoma python=3.9
+    conda create -n spinextract python=3.9
     ```
 4. Activate conda environment
     ```console
-    conda activate rapidlymphoma
+    conda activate spinextract
     ```
 5. Install package and dependencies
     ```console
-    <cd /path/to/rapidlymphoma/repo/dir>
+    <cd /path/to/spinextract/repo/dir>
     pip install -e .
     ```
 
 ## Directory organization
-- rapidlymphoma: the library for training with RapidLymphoma
+- spinextract: the library for training with spinextract
     - datasets: PyTorch datasets to work with the data release
     - losses: Normalized Similarity loss function for BYOL
     - models: PyTorch networks for training and evaluation
@@ -53,47 +52,38 @@ The code base is written using PyTorch Lightning, with custom network and
 datasets.
 
 
-## RapidLymphoma training with adapted BYOL algorithm
+## spinextract training with adapted BYOL algorithm
 1. Download and uncompress the data.
-2. Update the sample config file in `train/config/train_rapidlymphoma.yaml` with
+2. Update the sample config file in `train/config/train_spinextract.yaml` with
     desired configurations.
 3. Change directory to `train` and activate the conda virtual environment.
 4. Use `train/train_contrastive.py` to start training:
     ```console
-    python train_contrastive.py -c config/train_rapidlymphoma.yaml
+    python train_contrastive.py -c config/train_spinextract.yaml
     ```
-5. To run linear or finetuning protocol, update the config file
+5. To run linear, transformer or finetuning protocol, update the config file
     `train/config/train_finetune.yaml` and continue training using
     `train/train_finetune.py`:
     ```console
     python train_finetune.py -c config/train_finetune.yaml
     ```
 
-## Cross entropy experiments (ablation study)
-1. Download and uncompress the data.
-2. Update the sample config file in `train/config/train_ce.yaml` with desired
-    configurations.
-3. Change directory to `train` and activate the conda virtual environment.
-4. Use `train/train_ce.py` to start training:
-    ```console
-    python train_ce.py -c config/train_ce.yaml
-    ```
 
 ## Model evaluation
 1. Update the sample config file in `train/config/eval.yaml` with desired
     configurations, including the PyTorch Lightning checkpoint you would like
     to use.
-2. Change directory to `train` and activate the conda virtual environment.
-3. Use `train/train_ce.py` to start training:
+2. Change directory to `eval` and activate the conda virtual environment.
+3. Use `eval/eval.py` to start training:
     ```console
     python eval.py -c config/eval.yaml
     ```
 
-## RapidLymphoma model weights
-[**Download RapidLymphoma weights**](https://huggingface.co/DavidReineckeMD/rapidlymphoma/blob/main/rapidlymphoma_resnet50.pt)
+## SpineXtract model weights
+[**Download spinextract weights**](https://huggingface.co/DavidReineckeMD/spinextract)
 
 ## License Information
-RapidLymphoma data is released under Attribution-NonCommercial-ShareAlike 4.0
+SpineXtract data is released under Attribution-NonCommercial-ShareAlike 4.0
 International (CC BY-NC-SA 4.0), and the code is licensed under the MIT License.
 See LICENSE for license information and THIRD\_PARTY for third party notices.
 Python and PyTorch code structure is based on #MLNeurosurg/opensrh .

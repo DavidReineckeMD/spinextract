@@ -1,6 +1,6 @@
 # SpineXtract: Fast intraoperative AI-based classifcation of common spinal tumor using stimulated Raman histology
 
-Implementation code for SpineXtract. Accepted in Neuro-Oncology.
+Implementation code for SpineXtract.
 
 
 [**Final Article available in XX**]
@@ -9,6 +9,9 @@ Implementation code for SpineXtract. Accepted in Neuro-Oncology.
 
 ## Clinical Impact
 SpineXtract addresses a critical gap in spinal tumor surgery through its ability to deliver rapid and accurate diagnostic insights that enhance intraoperative and clinical decision-making processes. By significantly reducing diagnostic timelines, this technology has the potential to shorten surgical duration and improve workflow efficiency. The system's robust performance across our international virtual trial demonstrates its adaptability to diverse clinical environments and delivers intraoperative visual feedback for immediate surgical guidance and further decision-making.
+
+## Technical Impact
+Our transformer-based classifier leverages advanced self-attention mechanisms within each image patch to optimize feature extraction and classification accuracy. The model partitions input embeddings into divisible segments, applying targeted attention to the most diagnostically relevant features within each patch. This domain-specific architectural adaptation enhances SpineXtract's ability to identify subtle histological patterns characteristic of different spinal tumor types, resulting in superior performance on this critical downstream clinical task compared to current state-of-the-art approaches.
 
 ## Workflow
 

@@ -1,4 +1,4 @@
-# SpineXtract: Fast intraoperative AI-based classifcation of common spinal tumor using stimulated Raman histology
+# SpineXtract: Rapid intraoperative AI-driven diagnostics for spinal tumors using label-free optical imaging
 
 Implementation code for SpineXtract.
 

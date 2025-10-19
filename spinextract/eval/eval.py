@@ -28,6 +28,7 @@ from spinextract.train.common import (parse_args, get_exp_name, config_loggers,
 from spinextract.train.train_ce import CESystem
 
 
+
 def get_embeddings(cf: Dict[str, Any],
                    exp_root: str) -> Dict[str, Union[torch.Tensor, List[str]]]:
     """Run forward pass on the dataset, and generate embeddings and logits"""
@@ -207,6 +208,83 @@ def setup_eval_paths(cf, get_exp_name, cmt_append):
 
     return exp_root, pred_dir, partial(copy2, dst=config_dir), pred_fname
 
+CONF_WEIGHT_PMAX = 0.7
+CONF_WEIGHT_AGREE = 0.3
+CONF_HIGH_THRESHOLD = 0.9
+
+def _conf_score(P: np.ndarray, pred_idx: int, w_pmax: float = CONF_WEIGHT_PMAX, w_agree: float = CONF_WEIGHT_AGREE) -> float:
+    if P.size == 0:
+        return 0.0
+    p_max_mean = float(P[:, pred_idx].mean())
+    agreement = float((P.argmax(axis=1) == pred_idx).mean())
+    s = w_pmax * p_max_mean + w_agree * agreement
+    return max(0.0, min(1.0, s))
+
+def _extract_patient_slide(p: str):
+    parts = p.split("/")
+    patient = parts[-4]
+    slide = "/".join([parts[-4], parts[-3]])
+    return patient, slide
+
+def _to_probs(logits_tensor: Union[torch.Tensor, List[List[float]]]) -> np.ndarray:
+    if isinstance(logits_tensor, torch.Tensor):
+        return torch.softmax(logits_tensor, dim=1).detach().cpu().numpy()
+    x = np.asarray(logits_tensor, dtype=np.float32)
+    x = x - x.max(axis=1, keepdims=True)
+    ex = np.exp(x)
+    return ex / ex.sum(axis=1, keepdims=True)
+
+def save_pred_csvs(predictions: Dict[str, Union[torch.Tensor, List[str]]], out_dir: str,
+                   conf_high_threshold: float = CONF_HIGH_THRESHOLD,
+                   w_pmax: float = CONF_WEIGHT_PMAX, w_agree: float = CONF_WEIGHT_AGREE):
+    paths: List[str] = predictions["path"]
+    labels: List[int] = [int(l.item()) if hasattr(l, "item") else int(l) for l in list(predictions["label"])]
+    logits = predictions["logits"]
+    probs = _to_probs(logits)
+    preds = probs.argmax(axis=1).astype(int)
+    n_classes = probs.shape[1]
+    pts = [_extract_patient_slide(p) for p in paths]
+    patients = [t[0] for t in pts]
+    slides = [t[1] for t in pts]
+    df_cols = {
+        "path": paths,
+        "patient": patients,
+        "slide": slides,
+        "true_label": labels,
+        "pred_label": preds,
+        "confidence_score": probs.max(axis=1)
+    }
+    for i in range(n_classes):
+        df_cols[f"prob_{i}"] = probs[:, i]
+    patch_df = pd.DataFrame(df_cols)
+    patch_df["high_confidence"] = patch_df["confidence_score"] >= conf_high_threshold
+    patch_df.to_csv(os.path.join(out_dir, "predictions_patch.csv"), index=False)
+    def _agg(df: pd.DataFrame, by: str, conf_colname: str, out_name: str):
+        g = df.groupby(by)
+        rows = []
+        for key, grp in g:
+            P = grp[[f"prob_{i}" for i in range(n_classes)]].to_numpy()
+            avg_probs = P.mean(axis=0)
+            pred_idx = int(avg_probs.argmax())
+            row = {
+                by: key,
+                "true_label": int(grp["true_label"].iloc[0]),
+                "pred_label": pred_idx,
+                "patch_count": int(len(grp)),
+                conf_colname: float(_conf_score(P, pred_idx, w_pmax, w_agree)),
+                "high_confidence": False
+            }
+            for i in range(n_classes):
+                row[f"avg_prob_{i}"] = float(avg_probs[i])
+            row["high_confidence"] = bool(row[conf_colname] >= conf_high_threshold)
+            rows.append(row)
+        out_df = pd.DataFrame(rows)
+        out_df.to_csv(os.path.join(out_dir, out_name), index=False)
+        return out_df
+    slide_df = _agg(patch_df, "slide", "confidence_score", "predictions_slide.csv")
+    patient_df = _agg(patch_df, "patient", "confidence_score", "predictions_patient.csv")
+    return patch_df, slide_df, patient_df
+
 
 def main():
     """Driver script for evaluation pipeline."""
@@ -231,6 +309,9 @@ def main():
 
     # generate specs
     make_specs(predictions)
+    # generate confidence scores for slide and patient-level
+    patch_df, slide_df, patient_df = save_pred_csvs(predictions, pred_dir)
+
 
 
 if __name__ == "__main__":

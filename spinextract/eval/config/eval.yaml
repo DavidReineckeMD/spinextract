@@ -14,3 +14,4 @@ model:
     num_embedding_out: 128
 eval:
     ckpt_path: relative/path/to/checkpoint.ckpt # eg. hash_datetime_expname_comment/models/ckpt-epochXX-accXXX.ckpt
+    platt_prefix: "path/to/platt_folder" # containing json and joblib file trained on UKK training cohort
